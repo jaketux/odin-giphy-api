@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giphy API Test</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+   <div class="search-header">Search for a random GIF!</div><br/><br/>
+    <label for="search-bar">Search: </label>
+    <input type="text" name="search-bar" id="search-bar" class="search-bar">
+    <button class="refresh-btn" type="button">Search</button><br/><br/>
+    <img src="#" alt="">
+    <div class="error-text"></div><br/><br/>
+    <script>
+       const img = document.querySelector('img') 
+       const button = document.querySelector('.refresh-btn')
+       const searchBar = document.querySelector('#search-bar')
+       const errorText = document.querySelector('.error-text')
+       button.addEventListener('click', function(){
+       fetch('https://api.giphy.com/v1/gifs/translate?api_key=XSX9VYxe1T9sRwJfg99WIYu5UfGwRpZV&s='+searchBar.value, {mode: 'cors'})
+       .then(function(response) {
+        return response.json()
+       }).then (function(response){
+        img.src = response.data.images.original.url;
+       }).catch(function(error){
+        img.src = 'https://as2.ftcdn.net/v2/jpg/05/40/09/17/1000_F_540091753_geSyeimYopEFMjOgWEPln7jLhCvOc9Ew.jpg';
+        errorText.textContent = "Error, please check the status of the API Key"
+       })
+    })
+       
+    </script>
+</body>
+</html>
